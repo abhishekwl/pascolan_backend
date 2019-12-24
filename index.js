@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const logger = require('morgan');
 const helmet = require('helmet');
+const cors = require('cors');
 //LOCAL IMPORTS
 const { respond } = require('./util');
 
@@ -21,6 +22,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(logger('dev'));
 app.use(helmet());
+app.use(cors());
 
 app.get('/', (request, response) => respond(null, 'All API requests should be made to /api/v1 endpoint', request, response));
 
