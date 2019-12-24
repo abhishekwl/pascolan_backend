@@ -10,7 +10,7 @@ exports.getAllEmployees = (request, response) => EmployeeModel.find({}, (err, da
 
 exports.getHighestPaidEmployees = (request, response) => EmployeeModel.find({}).sort({ 'salary': 'descending' }).exec((err, data) => respond(err, data, request, response));
 
-exports.getAverageSalaryOfTypeZero = (request, response) => EmployeeModel.aggregate().group({ _id: null, salary: { $avg: '$salary' }  }).exec((err, data) => respond(err, data, request, response));
+exports.getAverageSalaryOfTypeZero = (request, response) => EmployeeModel.aggregate([{ $match: { type: 'senior' } }]).group({ _id: null, salary: { $avg: '$salary' }  }).exec((err, data) => respond(err, data, request, response));
 
 exports.updateEmployee = (request, response) => EmployeeModel.findByIdAndUpdate(request.params._id, { $set: request.body }, { new: true, runValidators: true }, (err, data) => respond(err, data, request, response));
 
